@@ -50,10 +50,10 @@ def logError(e):
 # Get Of-The-Day content
 ################################################
 
-def getWod():
+def getWordOfDay():
     """
     Get the word of the day from Merriam Webster (https://www.merriam-webster.com/word-of-the-day)
-    Return a 
+    Return a dictionary object with word, definition, and attributes
     """
     resp = getUrl('https://www.merriam-webster.com/word-of-the-day')
 
@@ -82,14 +82,11 @@ def getWod():
 
 
 
-
-
-        
-        
-
-
-
-
+def getPoemOfDay():
+    """
+    Get the poem of the day from Poetry Foundation ('https://www.poetryfoundation.org/poems/poem-of-the-day')
+    Return the poem's title, author, and content in a dictionary object
+    """ 
 
 
 
