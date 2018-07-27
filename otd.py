@@ -64,15 +64,11 @@ def getWordOfDay():
         
         #get word info
         wod = {
-                'word': soup.find('div', class_='word-and-pronunciation').h1.get_text(),
-                'part-of-speech': soup.find('div', class_='word-attributes').find(class_='main-attr').get_text(),
-                'pronunctiation': soup.find('div', class_='word-attributes').find(class_='word-syllables').get_text(),
-                'def': []
-              }
-
-        #get word definition
-        for defn in soup.select('.wod-definition-container > p'):
-            wod['def'].append(defn.get_text())
+                'word': soup.find('div', class_='word-and-pronunciation').h1,
+                'part-of-speech': soup.find('div', class_='word-attributes').find(class_='main-attr'),
+                'pronunctiation': soup.find('div', class_='word-attributes').find(class_='word-syllables')
+                'defn': soup.select('.wod-definition-container > p')
+            }
 
         return wod
 
