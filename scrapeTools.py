@@ -19,7 +19,7 @@ def getUrl(url):
 	    if isGoodResponse(resp):
 	        return resp.content
 	    else:
-                print("Bad response\n" + resp.text)
+                print "Bad response, got code", resp.status_code
 	        return None
 
     except RequestException as e:

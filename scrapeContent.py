@@ -1,4 +1,4 @@
-import "scrapeTools.py"
+from scrapeTools import *
 from random import choice
 
 
@@ -11,7 +11,7 @@ def getWordOfDay():
     Get the word of the day from Merriam Webster (https://www.merriam-webster.com/word-of-the-day)
     Return a dictionary object with word, definition, and attributes
     """
-    soup = getSoup('https://www.merriam-webster.com/dictionary/of-the-day') 
+    soup = getSoup('https://www.merriam-webster.com/word-of-the-day') 
     
     if(soup == None):
         return None
@@ -110,7 +110,7 @@ def getMeditationOfDay():
         return None
     
     #build meditation data and add book I to the list
-    books = [soup.find(id='lfHutcheson_div_016'))]
+    books = [soup.find(id='lfHutcheson_div_016')]
     
     #add remaining books to list
     for div in soup.find(id='lfHutcheson_div_016').find_next_siblings('div'):
