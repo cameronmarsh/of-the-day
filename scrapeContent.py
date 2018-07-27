@@ -1,63 +1,5 @@
-from requests import get
-from bs4 import BeautifulSoup
-from requests.exceptions import RequestException
-from contextlib import closing
-
-################################################
-# Web scraping functions
-# Source: realpython.com
-###############################################
-
-def getUrl(url):
-    """
-    Make a HTTP GET request for the content at <url>
-    Return the page if successful, otherwise return None
-    """
-    try:
-        headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux) Gecko/20100101 Firefox/61.0'}
-        with closing(get(url, stream=True, headers=headers)) as resp:
-	    if isGoodResponse(resp):
-	        return resp.content
-	    else:
-                print("Bad response\n" + resp.text)
-	        return None
-
-    except RequestException as e:
-        logError("Error during requests to {0} : {1}", format(url, str(e)))
-        return None
-
-
-
-def isGoodResponse(resp):
-    """
-    Returns True if <resp> is HTML, returns False if not
-    """
-    contentType = resp.headers['Content-Type'].lower()
-    return (resp.status_code == 200
-            and contentType != None
-            and contentType.find('html') > -1)
-
-
-def logError(e):
-    """
-    Log errors to terminal output
-    """
-    print(e)
-
-
-
-def getSoup(url):
-    """
-    Returns the html-parsed BeautifulSoup object based on the URL
-    """
-    resp = getUrl(url)
-
-    if resp != None:
-        return BeautifulSoup(resp, 'html.parser')
-    else:
-        return None
-
-
+import "scrapeTools.py"
+from random import choice
 
 
 #################################################
@@ -147,17 +89,53 @@ def getQuoteOfDay():
 
     #get quote info
     qod = {
-            'quote': soup.dailyquote.p
+            'quote': soup.dailyquote.p,
             'author': soup.dailyquote.find(class_='author').get_text().strip()
           }
 
     return qod
 
 
+
+def getMeditationOfDay():
+    """
+    Get a random meditation from Marcus Aurelius' "Meditations" from the online book ('http://oll.libertyfund.org/titles/antoninus-the-meditations-of-the-emperor-marcus-aurelius-antoninus-2008')
+
+    Return a tuple containing the book number and the meditation
+    """
+
+    soup = getSoup('http://oll.libertyfund.org/titles/antoninus-the-meditations-of-the-emperor-marcus-aurelius-antoninus-2008')
+
+    if(soup == None):
+        return None
+    
+    #build meditation data and add book I to the list
+    books = [soup.find(id='lfHutcheson_div_016'))]
+    
+    #add remaining books to list
+    for div in soup.find(id='lfHutcheson_div_016').find_next_siblings('div'):
+        #check if the section is a book
+        if div.h2.get_text().split()[0] == "BOOK":
+            books.append(div)
+    
+    
+    #list of all meditations to sample
+    meditations = []
+    for book in books:
+        bookTitle = book.h2
+        for meditation in book.find_all('p'):
+            meditations.append((bookTitle, meditation))
+
+    #pick a random mediation 
+    return choice(meditations)
+
+
+
+
+
+
+
  
-
-
-
 
 
 
