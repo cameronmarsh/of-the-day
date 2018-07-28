@@ -1,0 +1,22 @@
+h1 {
+	font-family: sans-serif; 
+	font-style: normal;
+	font-size: 54px;
+}
+
+h2 {
+	font-family: sans-serif;
+	font-size: 32px;
+	font-weight: lighter;
+}
+
+body {
+	text-align: center;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.word-info > * {
+	margin-top: 0;
+	margin-bottom: 0;
+}

@@ -2,18 +2,31 @@
 
 from scrapeContent import *
 
-#TODO: put the web scraping content in the body of the html doc and add headers and metadata
-
 def constructHtml():
     htmlFile = open('index.html', 'w')
-    htmlFile.write("<h1>Of The Day</h1?>")
     
+    ###write html header and metadata
+    htmlFile.write('<!DOCTYPE html>')
+    htmlFile.write('<html>')
+    htmlFile.write('<head>')
+    htmlFile.write('<meta charset="utf-8" />')
+    htmlFile.write('<title>Of the Day</title>')
+    htmlFile.write('<link rel="stylesheet" href="style.css">')
+    htmlFile.write('</head>')
+    htmlFile.write('<body>')
+    
+    ###write html body
+    htmlFile.write("<h1>Of The Day</h1>")
+    htmlFile.write('<hr/>')
+
     #write word of the day
     wod = getWordOfDay()
     htmlFile.write('<h2>Word of the Day</h2>')
+    htmlFile.write('<div class="word-info">')
     htmlFile.write(wod['word'])
     htmlFile.write(wod['part-of-speech'] + "<br></br>")
     htmlFile.write(wod['pronunciation'])
+    htmlFile.write('</div>')
     for defn in wod['defn']:
         htmlFile.write(str(defn))
 
@@ -55,5 +68,13 @@ def constructHtml():
 
     htmlFile.write('<hr></hr>')
 
+    ###closing tags
+    htmlFile.write('</body>')
+    htmlFile.write('</html>')
+
     htmlFile.close()
 
+
+
+#TODO: delete this
+constructHtml()
