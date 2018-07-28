@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from scrapeTools import *
 from random import choice
 
@@ -18,9 +20,9 @@ def getWordOfDay():
 
     #get word info
     wod = {
-            'word': str(soup.find('div', class_='word-and-pronunciation').h1),
+            'word': str(soup.find('div', class_='word-and-pronunciation').h1.string.wrap(soup.new_tag('h3'))),
             'part-of-speech': str(soup.find('div', class_='word-attributes').find(class_='main-attr')),
-            'pronunctiation': str(soup.find('div', class_='word-attributes').find(class_='word-syllables')),
+            'pronunciation': str(soup.find('div', class_='word-attributes').find(class_='word-syllables')),
             'defn': soup.select('.wod-definition-container > p')
         }
 
@@ -41,7 +43,7 @@ def getPoemOfDay():
 
     #get poem info
     pod = {
-            'title': str(soup.find('h1', class_='c-hdgSans c-hdgSans_2 c-mix-hdgSans_inline')),
+            'title': str(soup.find('h1', class_='c-hdgSans c-hdgSans_2 c-mix-hdgSans_inline').string.wrap(soup.new_tag('h3'))),
             'author': str(soup.select('span > a')[0]),
             'lines': soup.select('.o-poem > div')
           }
@@ -67,9 +69,8 @@ def getSubredditOfDay():
     #get subreddit info
     subPost = soup.select('.md')[0]
     subod = {
-            'name': subPost.h4.a,
-            'readers': subPost.p.find_all('strong')[0],
-            'age': subPost.p.find_all('strong')[1],
+            'name': str(subPost.h4.string.wrap(soup.new_tag('h3'))),
+            'readersAndAge': str(subPost.p),
             'description': subPost.p.find_next_siblings()
             }
 
@@ -82,15 +83,18 @@ def getQuoteOfDay():
     Get the quote of the day from Eduro ('https://www.eduro.com/')
     Return the quote and author
     """
-    soup = getSoup('https://www.forbes.com/quotes/')
+    soup = getSoup('https://www.eduro.com')
 
     if(soup == None):
         return None
 
     #get quote info
+    #TODO: there has to be a better way to get the author's name, this seems hacky
+    author = soup.dailyquote.find(class_='author').get_text().strip().split()
+    author = author[1] + ' ' + author[2]
     qod = {
-            'quote': soup.dailyquote.p,
-            'author': soup.dailyquote.find(class_='author').get_text().strip()
+            'quote': str(soup.dailyquote.p),
+            'author': author
           }
 
     return qod
@@ -122,9 +126,9 @@ def getMeditationOfDay():
     #list of all meditations to sample
     meditations = []
     for book in books:
-        bookTitle = book.h2
+        bookTitle = book.h2.get_text()
         for meditation in book.find_all('p'):
-            meditations.append((bookTitle, meditation))
+            meditations.append((bookTitle, str(meditation)))
 
     #pick a random mediation 
     return choice(meditations)

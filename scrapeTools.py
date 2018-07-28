@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from requests import get
 from bs4 import BeautifulSoup
 from requests.exceptions import RequestException
