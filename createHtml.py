@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from scrapeContent import *
+from datetime import date
 
 def constructHtml():
     htmlFile = open('index.html', 'w')
@@ -22,8 +23,12 @@ def constructHtml():
     htmlFile.write('</head>')
     htmlFile.write('<body>')
     
+    #get today's date
+    today = date.today().strftime('%A %B %d, %Y')
+
     ###write html body
     htmlFile.write("<h1>Of The Day</h1>")
+    htmlFile.write('<h3>' + today + '</h3>')
     htmlFile.write('<hr/>')
 
     #write word of the day
