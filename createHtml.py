@@ -11,7 +11,14 @@ def constructHtml():
     htmlFile.write('<head>')
     htmlFile.write('<meta charset="utf-8" />')
     htmlFile.write('<title>Of the Day</title>')
-    htmlFile.write('<link rel="stylesheet" href="style.css">')
+    htmlFile.write('<style type="text/css">')
+    #add css
+    styleSheet = open('style.css', 'r')
+    for line in styleSheet:
+        htmlFile.write(line)
+    styleSheet.close()
+    htmlFile.write('</style>')
+
     htmlFile.write('</head>')
     htmlFile.write('<body>')
     
@@ -74,7 +81,3 @@ def constructHtml():
 
     htmlFile.close()
 
-
-
-#TODO: delete this
-constructHtml()
