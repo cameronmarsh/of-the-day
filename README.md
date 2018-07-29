@@ -10,6 +10,6 @@ of-the-day is a web scraping project written in Python to get the word, quote, p
 * Meditation of the day: [*Meditations*](http://oll.libertyfund.org/titles/antoninus-the-meditations-of-the-emperor-marcus-aurelius-antoninus-2008) by Marcus Aurelius
 
 
-The web scraping data is then organized into an HTML document which is automatically emailed to a mailing list every morning. 
+The web scraping data is then organized into an HTML document which is automatically emailed to a mailing list every morning. Please email cmarsh10@gmail.com if you would like to join the mailing list. 
 
 
