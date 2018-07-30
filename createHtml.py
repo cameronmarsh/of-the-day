@@ -35,12 +35,14 @@ def constructHtml():
     wod = getWordOfDay()
     htmlFile.write('<h2>Word of the Day</h2>')
     htmlFile.write('<div class="word-info">')
-    htmlFile.write(wod['word'])
+    htmlFile.write('<b>' + wod['word'] + '</b>')
     htmlFile.write(wod['part-of-speech'] + "<br></br>")
     htmlFile.write(wod['pronunciation'])
     htmlFile.write('</div>')
+    htmlFile.write('<div class="text-align">')
     for defn in wod['defn']:
         htmlFile.write(str(defn))
+    htmlFile.write('</div>')
 
     htmlFile.write('<hr></hr>')
 
@@ -49,9 +51,13 @@ def constructHtml():
     htmlFile.write('<h2>Poem of the Day</h2>')
     htmlFile.write(pod['title'])
     htmlFile.write(pod['author'] + '<br></br>')
+    htmlFile.write('<div>')
+    htmlFile.write('<div class="text-align">')
     for line in pod['lines']:
         htmlFile.write(str(line))
-
+    htmlFile.write('</div>')
+    htmlFile.write('</div>')
+    
     htmlFile.write('<hr></hr>')
     
     #write subreddit of the day
@@ -68,7 +74,7 @@ def constructHtml():
     qod = getQuoteOfDay()
     htmlFile.write('<h2>Quote of the Day</h2>')
     htmlFile.write(qod['quote'])
-    htmlFile.write('<p>\t- ' + qod['author'] + '</p>') 
+    htmlFile.write('<p>- ' + qod['author'] + '</p>') 
 
     htmlFile.write('<hr></hr>')
 
@@ -76,7 +82,7 @@ def constructHtml():
     mod = getMeditationOfDay()
     htmlFile.write('<h2>Meditation of the Day</h2>')
     htmlFile.write('<h3>' + mod[0] + '</h3>')
-    htmlFile.write(mod[1])
+    htmlFile.write('<p>' + mod[1] + '</p>')
 
     htmlFile.write('<hr></hr>')
 

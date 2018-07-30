@@ -26,3 +26,8 @@ body {
 	margin-top: 0;
 	margin-bottom: 0;
 }
+
+.text-align {
+	text-align: left;
+	display: inline-block;
+}

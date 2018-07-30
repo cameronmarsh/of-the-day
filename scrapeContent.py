@@ -42,12 +42,13 @@ def getPoemOfDay():
         return None
 
     #get poem info
+
     pod = {
             'title': str(soup.find('h1', class_='c-hdgSans c-hdgSans_2 c-mix-hdgSans_inline').string.wrap(soup.new_tag('h3'))),
             'author': str(soup.select('span > a')[0]),
             'lines': soup.select('.o-poem > div')
           }
-
+    
     return pod
 
 
@@ -128,7 +129,12 @@ def getMeditationOfDay():
     for book in books:
         bookTitle = book.h2.get_text()
         for meditation in book.find_all('p'):
-            meditations.append((bookTitle, str(meditation)))
+            try:
+                for note in meditation.select('a') + meditation.select('span'):
+                    note.decompose()
+                    meditations.append((bookTitle, meditation.encode('utf-8')))
+            except Exception as e:
+                meditations.append((bookTitle, meditation.encode('utf-8')))
 
     #pick a random mediation 
     return choice(meditations)
