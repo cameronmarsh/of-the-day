@@ -68,7 +68,14 @@ def getSubredditOfDay():
         return None
 
     #get subreddit info
-    subPost = soup.select('.md')[0]
+    subPost = None
+    posts = soup.select('.s1w05phc-0')[0].find_all('div')
+    for post in posts:
+        if len(post.select('.icon-sticky')) == 0:
+            if post.h4 != None:
+                subPost = post
+                break
+
     subod = {
             'name': str(subPost.h4.string.wrap(soup.new_tag('h3'))),
             'readersAndAge': str(subPost.p),

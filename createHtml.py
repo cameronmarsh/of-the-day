@@ -59,16 +59,6 @@ def constructHtml():
     htmlFile.write('</div>')
     
     htmlFile.write('<hr></hr>')
-    
-    #write subreddit of the day
-    subod = getSubredditOfDay()
-    htmlFile.write('<h2>Subreddit of the Day</h2>')
-    htmlFile.write(subod['name'])
-    htmlFile.write(subod['readersAndAge'])
-    for par in subod['description']:
-        htmlFile.write(str(par))
-
-    htmlFile.write('<hr></hr>')
 
     #write quote of day
     qod = getQuoteOfDay()
@@ -83,6 +73,16 @@ def constructHtml():
     htmlFile.write('<h2>Meditation of the Day</h2>')
     htmlFile.write('<h3>' + mod[0] + '</h3>')
     htmlFile.write('<p>' + mod[1] + '</p>')
+
+    htmlFile.write('<hr></hr>')
+
+    #write subreddit of the day
+    subod = getSubredditOfDay()
+    htmlFile.write('<h2>Subreddit of the Day</h2>')
+    htmlFile.write(subod['name'])
+    htmlFile.write(subod['readersAndAge'])
+    for par in subod['description']:
+        htmlFile.write(str(par))
 
     htmlFile.write('<hr></hr>')
 
